@@ -1,5 +1,5 @@
 "use client";
-import { AlignRight, Cross, CrossIcon, Menu, X } from "lucide-react";
+import { AlignRight, ArrowBigRight, X } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -39,6 +39,11 @@ export default function Header() {
                 Blogs
               </h2>
             </Link>
+            <Link href={"/contribution"}>
+              <h2 className="text-gray-800 font-semibold hover:scale-110 hover:bg-green-500 transition-all">
+                Contributions
+              </h2>
+            </Link>
           </div>
         </div>
         <div className="flex gap-3 items-center">
@@ -66,24 +71,54 @@ export default function Header() {
         <>
           <div className="p-8 m-1 w-full absolute bg-green-500 z-30 md:hidden">
             <div className=" flex flex-col gap-3">
-              <Link href={"/"} onClick={toggleMenu}>
+              <Link
+                href={"/"}
+                onClick={toggleMenu}
+                className="flex gap-1 items-center"
+              >
+                <ArrowBigRight />
                 <h2 className="text-gray-800 font-semibold hover:scale-105 p-1 hover:bg-gray-500 transition-all">
                   Home
                 </h2>
               </Link>
-              <Link href={"/about"} onClick={toggleMenu}>
+              <Link
+                href={"/about"}
+                onClick={toggleMenu}
+                className="flex gap-1 items-center"
+              >
+                <ArrowBigRight />
                 <h2 className="text-gray-800 font-semibold hover:scale-105 p-1 hover:bg-gray-500 transition-all">
                   About
                 </h2>
               </Link>
-              <Link href={"/causes"} onClick={toggleMenu}>
+              <Link
+                href={"/causes"}
+                onClick={toggleMenu}
+                className="flex gap-1 items-center"
+              >
+                <ArrowBigRight />
                 <h2 className="text-gray-800 font-semibold hover:scale-105 p-1 hover:bg-gray-500 transition-all">
                   Causes
                 </h2>
               </Link>
-              <Link href={"/blogs"} onClick={toggleMenu}>
+              <Link
+                href={"/blogs"}
+                onClick={toggleMenu}
+                className="flex gap-1 items-center"
+              >
+                <ArrowBigRight />
                 <h2 className="text-gray-800 font-semibold hover:scale-105 p-1 hover:bg-gray-500 transition-all">
                   Blogs
+                </h2>
+              </Link>
+              <Link
+                href={"/contribution"}
+                onClick={toggleMenu}
+                className="flex gap-1 items-center"
+              >
+                <ArrowBigRight />
+                <h2 className="text-gray-800 font-semibold hover:scale-105 p-1 hover:bg-gray-500 transition-all">
+                  Contributions
                 </h2>
               </Link>
             </div>

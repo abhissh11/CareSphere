@@ -1,35 +1,43 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { auth } from "../../../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "next/router";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"; // Import necessary functions from Firebase Auth module
+import { auth } from "../../../firebase"; // Assuming you have initialized Firebase in a file named firebase.js
 
-export default function page() {
+export default function SignUpPage() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const { email, password } = formData;
+
     try {
       const authInstance = auth; // Get the auth instance from Firebase
-      await signInWithEmailAndPassword(authInstance, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        authInstance,
+        email,
+        password
+      ); // Use createUserWithEmailAndPassword function
 
-      console.log("Sign in successful.");
+      console.log("Sign up successful. User credentials:", userCredential.user);
 
-      window.location.href = "/";
+      window.location.href = "/signin";
     } catch (error) {
+      console.log(error);
       setError(error.message);
     }
   };
+
   return (
     <div className="flex flex-col md:flex-row gap-5 justify-center items-center mx-10 my-14">
       <div className="flex-1 flex-col gap-4">
-        <div className=" flex flex-col items-start gap-4">
+        <div className="flex flex-col items-start gap-4">
           <Link href={"/"}>
             <h1 className="text-xl font-bold bg-gradient-to-r from-yellow-400 to-green-700 px-2 py-1 rounded-md text-white ">
               CareShare
@@ -42,11 +50,21 @@ export default function page() {
           </p>
         </div>
       </div>
-      <div className="flex-1 text-center">
+      <div className="flex-1">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col gap-3 items-center w-full "
         >
+          <div className="flex flex-col">
+            <label className="text-sm font-semibold">Your Name</label>
+            <input
+              type="text"
+              placeholder="Full Name"
+              id="name"
+              className="px-4 rounded-md border-l-4 border-green-500"
+              onChange={handleChange}
+            />
+          </div>
           <div className="flex flex-col ">
             <label className="text-sm font-semibold">Your Email</label>
             <input
@@ -63,26 +81,27 @@ export default function page() {
               type="password"
               placeholder="234@abds"
               id="password"
-              onChange={handleChange}
               className="px-4 rounded-md  border-l-4 border-green-500 "
+              onChange={handleChange}
             />
           </div>
           <button
             type="submit"
             className="bg-green-500  px-[6.2rem]  py-2 rounded-md text-white hover:bg-blue-500"
           >
-            Sign In
+            Sign Up
           </button>
         </form>
-        <p className="pt-4">
-          Don't have an account?
-          <Link href={"/signup"}>
+        <p className="pt-4 text-center">
+          Already have an account?
+          <Link href={"/signin"}>
             <span className="text-green-500 pl-2 cursor-pointer hover:font-semibold">
-              Register now
+              Login..
             </span>
           </Link>
         </p>
-        {error && <p>{error}</p>}
+        {error && <p className="text-red-500">{error}</p>}{" "}
+        {/* Display error message if error exists */}
       </div>
     </div>
   );
