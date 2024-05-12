@@ -1,9 +1,8 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { auth } from "../../../firebase";
+import { auth } from "../firebase/config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "next/router";
 
 export default function page() {
   const [formData, setFormData] = useState({});
@@ -77,12 +76,12 @@ export default function page() {
         <p className="pt-4">
           Don't have an account?
           <Link href={"/signup"}>
-            <span className="text-green-500 pl-2 cursor-pointer hover:font-semibold">
+            <span className="text-green-500 pl-2 cursor-pointer hover:underline">
               Register now
             </span>
           </Link>
         </p>
-        {error && <p>{error}</p>}
+        {error && <p className="text-red-500">{error}</p>}
       </div>
     </div>
   );

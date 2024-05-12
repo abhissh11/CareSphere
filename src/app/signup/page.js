@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"; // Import necessary functions from Firebase Auth module
-import { auth } from "../../../firebase"; // Assuming you have initialized Firebase in a file named firebase.js
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/config";
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState({});
@@ -95,13 +95,12 @@ export default function SignUpPage() {
         <p className="pt-4 text-center">
           Already have an account?
           <Link href={"/signin"}>
-            <span className="text-green-500 pl-2 cursor-pointer hover:font-semibold">
+            <span className="text-green-500 pl-2 cursor-pointer hover:underline">
               Login..
             </span>
           </Link>
         </p>
         {error && <p className="text-red-500">{error}</p>}{" "}
-        {/* Display error message if error exists */}
       </div>
     </div>
   );
